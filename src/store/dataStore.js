@@ -1,8 +1,9 @@
 class dataStore {
     cardDetails = [
         {
+            id: "A1",
             title: "How well are you eating?",
-            icon: require("../icon/facebookIcon.png"),
+            icon: require("../icon/healthyfood.png"),
             maxPoints: 1000,
             desc: "Tell us your eating habits and we will let you know if you're making good choices.",
             getPoints: 500,
@@ -11,8 +12,9 @@ class dataStore {
             status: "online"
         },
         {
+            id: "A2",
             title: "How well are you sleeping?",
-            icon: require("../icon/instaIcon.png"),
+            icon: require("../icon/sleep.png"),
             maxPoints: 2000,
             desc: "Tell us your sleeping status and we will help you to improve your sleeping quality.",
             getPoints: 500,
@@ -21,8 +23,9 @@ class dataStore {
             status: "offline"
         },
         {
+            id: "A3",
             title: "How well are you working?",
-            icon: require("../icon/playstoreIcon.png"),
+            icon: require("../icon/working.png"),
             maxPoints: 3000,
             desc: "Tell us your working habits and we will let you know if you're making good choices.",
             getPoints: 500,
@@ -31,8 +34,9 @@ class dataStore {
             status: "online"
         },
         {
+            id: "A4",
             title: "How well are you exercising?",
-            icon: require("../icon/whatsappIcon.png"),
+            icon: require("../icon/exercise.png"),
             maxPoints: 4000,
             desc: "Tell us your exercises habits and we will let you know if you're making good choices.",
             getPoints: 300,
@@ -41,8 +45,9 @@ class dataStore {
             status: "online"
         },
         {
-            title: "How was your health?",
-            icon: require("../icon/youtubeIcon.png"),
+            id: "A5",
+            title: "Check your heath status?",
+            icon: require("../icon/health.png"),
             maxPoints: 5000,
             desc: "Tell us your current health status and we will let you know your healthly rate.",
             getPoints: 800,

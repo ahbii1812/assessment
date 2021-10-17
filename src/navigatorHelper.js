@@ -15,6 +15,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import custom from './customization/customization';
 import Home from './page/home';
 import CardDetails from './page/cardDetails';
+import {createSharedElementStackNavigator} from 'react-navigation-shared-element'
 
 
 function HomePage({ navigation }) {
@@ -22,17 +23,17 @@ function HomePage({ navigation }) {
         <Stack.Navigator initialRouteName="Home"
             sceneAnimationEnabled={false}
             screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Home" >
-                {props => <Home props={props} />}
-            </Stack.Screen>
-            <Stack.Screen name="Card Details" >
-                {props => <CardDetails props={props} />}
-            </Stack.Screen>
+            <Stack.Screen name="Home" component={Home}/>
+                {/* {props => <Home props={props} />}
+            </Stack.Screen> */}
+            <Stack.Screen name="Card Details" component={CardDetails} sharedElements={(route) => {return [route.route.params.id]}}/>
+                {/* {props => <CardDetails props={props} />}
+            </Stack.Screen> */}
         </Stack.Navigator>)
 
 }
 
-const Stack = createStackNavigator();
+const Stack = createSharedElementStackNavigator();
 
 function App({ navigation }) {
     return (
