@@ -125,7 +125,10 @@ export default function CardDetails(props) {
     const RenderButton = () => {
         return (
             <View style={{ width: "100%", justifyContent: "center", alignItems: "center", marginTop: 20 }}>
-                <TouchableOpacity disabled={!toggleCheckBox} style={[styles.buttonContainerStyle, { backgroundColor: !toggleCheckBox ? 'rgba(238,33,108,0.5)' : custom.pink }]}>
+                <TouchableOpacity
+                    onPress={() => { navigator.push("Assessment", item); }}
+                    disabled={!toggleCheckBox}
+                    style={[styles.buttonContainerStyle, { backgroundColor: !toggleCheckBox ? 'rgba(238,33,108,0.5)' : custom.pink }]}>
                     <Text style={styles.buttonTextStyle}>Start assessment</Text>
                     <Image style={{ marginLeft: 5, width: 20, height: 20 }} source={require("../icon/enter_icon.png")}></Image>
                 </TouchableOpacity>
@@ -136,7 +139,10 @@ export default function CardDetails(props) {
     return (
         <View style={{ backgroundColor: custom.mainBg, height: "100%", width: "100%" }}>
             <SharedElement id={item.id} style={{ width: "100%", height: "30%", backgroundColor: custom.mainBg }}>
-                <Image overflow={"hidden"} style={{ width: "100%", height: "100%", backgroundColor: custom.mainBg }} source={item.icon} />
+                <Image
+                    overflow={"hidden"}
+                    style={{ width: "100%", height: "100%", backgroundColor: custom.mainBg }}
+                    source={item.icon} />
             </SharedElement>
             <View style={{ width: "97%", height: "70%" }}>
                 <View style={{ marginTop: 20, flexDirection: "row" }}>
@@ -163,6 +169,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         width: "75%",
         marginLeft: 10,
+        color: custom.black,
     },
     statusStyle: {
         marginTop: 7,
@@ -182,6 +189,7 @@ const styles = StyleSheet.create({
         lineHeight: 20,
         fontSize: custom.contentTextSize,
         marginLeft: 10,
+        color: custom.black,
     },
     iconStyle: {
         width: 50,

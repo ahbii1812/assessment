@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         color: custom.black
     },
     scrollViewStyle: {
-        height: "70%",
+        height: "65%",
         width: "90%",
         borderColor: custom.grey,
         borderWidth: 1,
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     modalStyle: {
-        height: "60%",
+        height: "55%",
         width: "80%",
         backgroundColor: custom.mainBg,
         borderRadius: 8,
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     },
     buttonStyle: {
         width: "90%", 
-        height: 40, 
+        height: "10%", 
         backgroundColor: custom.pink,
         marginVertical: 20,
         borderRadius: 8,
