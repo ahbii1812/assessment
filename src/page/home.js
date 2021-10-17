@@ -41,7 +41,7 @@ export default function Home(props) {
 
     return <View style={styles.container}>
         <FlatList
-        delayPressIn={0}
+            scrollEnabled={false}
             showsVerticalScrollIndicator={false}
             data={datastore.cardDetails}
             renderItem={(item, index) => renderContent(item, index)}
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     cardContianer: {
-        marginVertical: 15,
+        marginVertical: 5,
         justifyContent: "center",
         alignItems: "center",
         width: "100%"

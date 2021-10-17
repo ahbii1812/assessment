@@ -31,7 +31,6 @@ class PopUpModal extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-
             </Modal>)
     }
 
