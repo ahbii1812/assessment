@@ -1,13 +1,16 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { SharedElement } from 'react-navigation-shared-element';
 import custom from '../customization/customization';
 
 export default function RenderCard(props) {
-    const item  = props.item;
+    const item = props.item;
     return (
-        <TouchableOpacity style={styles.cardStyle} onPress={()=> {props.navigator.push("Card Details", item)}}>
+        <TouchableOpacity style={styles.cardStyle} onPress={() => { props.navigator.push("Card Details", item) }}>
             <View style={{ width: "25%", justifyContent: "center", alignItems: "center" }}>
-                <Image source={item.icon} style={{ width: 75, height: 75}} />
+                <SharedElement id={item.id}>
+                    <Image resizeMode={"cover"} source={item.icon} style={{ width: 75, height: 75, borderRadius: 8}} />
+                </SharedElement>
             </View>
             <View style={{ width: "75%", flexDirection: "column" }}>
                 <View style={[styles.textContainer, { justifyContent: "center" }]}>
@@ -20,7 +23,7 @@ export default function RenderCard(props) {
                         </Text>
                         pts
                     </Text>
-                    <TouchableOpacity onPress={()=> {props.navigator.push("Card Details", item)}}>
+                    <TouchableOpacity onPress={() => { props.navigator.push("Card Details", item) }}>
                         <Image style={styles.goIconStyle} source={require("../icon/enter_icon.png")}></Image>
                     </TouchableOpacity>
                 </View>

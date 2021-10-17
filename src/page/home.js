@@ -7,7 +7,7 @@ import datastore from '../store/dataStore'
 
 export default function Home(props) {
 
-    const navigator = props.props.navigation;
+    const navigator = props.navigation;
 
     useEffect(() => {
         const backAction = () => {

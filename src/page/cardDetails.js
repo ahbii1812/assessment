@@ -6,10 +6,11 @@ import moment from 'moment';
 import CheckBox from '@react-native-community/checkbox';
 import PopUpModal from '../components/popUpModal'
 import datastore from '../store/dataStore';
+import { SharedElement } from 'react-navigation-shared-element';
 
 export default function CardDetails(props) {
-    const navigator = props.props.navigation;
-    const item = props.props.route.params
+    const navigator = props.navigation;
+    const item = props.route.params
     const [toggleCheckBox, setToggleCheckBox] = useState(false)
 
     const RenderStatus = () => {
@@ -134,7 +135,9 @@ export default function CardDetails(props) {
 
     return (
         <View style={{ backgroundColor: custom.mainBg, height: "100%", width: "100%" }}>
-            <Image resizeMode="stretch" style={{ width: "100%", height: "30%", backgroundColor: custom.mainBg }} source={item.icon} />
+            <SharedElement id={item.id} style={{ width: "100%", height: "30%", backgroundColor: custom.mainBg }}>
+                <Image overflow={"hidden"} style={{ width: "100%", height: "100%", backgroundColor: custom.mainBg }} source={item.icon} />
+            </SharedElement>
             <View style={{ width: "97%", height: "70%" }}>
                 <View style={{ marginTop: 20, flexDirection: "row" }}>
                     <Text style={styles.mainTitle}>{item.title}</Text>
