@@ -14,7 +14,7 @@ export default function RenderCard(props) {
             </View>
             <View style={{ width: "75%", flexDirection: "column" }}>
                 <View style={[styles.textContainer, { justifyContent: "center" }]}>
-                    <Text style={{ fontSize: custom.titleTextSize, fontWeight: "bold" }}>{item.title}</Text>
+                    <Text style={{ fontSize: custom.titleTextSize, fontWeight: "bold", color: custom.black,}}>{item.title}</Text>
                 </View>
                 <View style={[styles.textContainer, { flexDirection: "row" }]}>
                     <Text style={[styles.normalTextStyle, { width: "85%" }]}>{"Earn up to\n"}

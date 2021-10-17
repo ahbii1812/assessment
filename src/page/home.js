@@ -41,6 +41,7 @@ export default function Home(props) {
 
     return <View style={styles.container}>
         <FlatList
+        delayPressIn={0}
             showsVerticalScrollIndicator={false}
             data={datastore.cardDetails}
             renderItem={(item, index) => renderContent(item, index)}

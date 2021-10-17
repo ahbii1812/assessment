@@ -16,19 +16,21 @@ import custom from './customization/customization';
 import Home from './page/home';
 import CardDetails from './page/cardDetails';
 import {createSharedElementStackNavigator} from 'react-navigation-shared-element'
+import Assessment from './page/assessment'
 
 
 function HomePage({ navigation }) {
     return (
         <Stack.Navigator initialRouteName="Home"
             sceneAnimationEnabled={false}
-            screenOptions={{ headerShown: false }}>
+            screenOptions={{ headerShown: false,  gestureEnabled: false,}}>
             <Stack.Screen name="Home" component={Home}/>
                 {/* {props => <Home props={props} />}
             </Stack.Screen> */}
             <Stack.Screen name="Card Details" component={CardDetails} sharedElements={(route) => {return [route.route.params.id]}}/>
                 {/* {props => <CardDetails props={props} />}
             </Stack.Screen> */}
+             <Stack.Screen name="Assessment" component={Assessment} sharedElements={(route) => {return [route.route.params.id]}}/>
         </Stack.Navigator>)
 
 }
