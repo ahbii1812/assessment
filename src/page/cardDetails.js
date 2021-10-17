@@ -4,6 +4,8 @@ import BackButton from '../components/backButton';
 import custom from '../customization/customization';
 import moment from 'moment';
 import CheckBox from '@react-native-community/checkbox';
+import PopUpModal from '../components/popUpModal'
+import datastore from '../store/dataStore';
 
 export default function CardDetails(props) {
     const navigator = props.props.navigation;
@@ -93,27 +95,27 @@ export default function CardDetails(props) {
     }
 
     const RenderTnC = () => {
-
         return (
-            <View style={{ margin: 10, flexDirection: "row", alignItems: "center" }}>
+            <View style={styles.tncContainer}>
                 <View style={{ width: "8%", justifyContent: "center", alignItems: "center" }}>
                     <CheckBox
+                        boxType="square"
                         value={toggleCheckBox}
-                        onCheckColor={custom.pink}
-                        onTintColor={custom.pink}
-                        tintColor={custom.pink}
+                        onCheckColor={custom.blue}
+                        onTintColor={custom.blue}
+                        tintColor={custom.blue}
                         onValueChange={(newValue) => setToggleCheckBox(newValue)}
                         style={{ width: 25, height: 25 }} />
                 </View>
-
-                <Text style={[styles.contentText1, { lineHeight: 20, marginLeft: 15, width: "90%" }]}>
+                <Text style={[styles.contentText1, { marginLeft: 15 }]}>
                     {"I have read and agree to the "}
-                    <TouchableOpacity>
-                        <Text style={[styles.tncTextStyle]}>
-                            terms and conditions
+                    <Text>
+                        <Text onPress={() => this.popUpModal.setModalVisible(true)} style={styles.tncTextStyle}>
+                            {"terms and conditions"}
                         </Text>
-                    </TouchableOpacity>
+                    </Text>
                 </Text>
+
             </View>
 
         )
@@ -122,9 +124,9 @@ export default function CardDetails(props) {
     const RenderButton = () => {
         return (
             <View style={{ width: "100%", justifyContent: "center", alignItems: "center", marginTop: 20 }}>
-                <TouchableOpacity disabled={!toggleCheckBox} style={[styles.buttonContainerStyle, { backgroundColor: !toggleCheckBox ? 'rgba(238,33,108,0.5)' : custom.pink}]}>
+                <TouchableOpacity disabled={!toggleCheckBox} style={[styles.buttonContainerStyle, { backgroundColor: !toggleCheckBox ? 'rgba(238,33,108,0.5)' : custom.pink }]}>
                     <Text style={styles.buttonTextStyle}>Start assessment</Text>
-                    <Image style={{marginLeft:5, width: 20, height: 20}} source={require("../icon/enter_icon.png")}></Image>
+                    <Image style={{ marginLeft: 5, width: 20, height: 20 }} source={require("../icon/enter_icon.png")}></Image>
                 </TouchableOpacity>
             </View>
         )
@@ -143,6 +145,11 @@ export default function CardDetails(props) {
                 <RenderTnC />
                 <RenderButton />
             </View>
+            <PopUpModal ref={component => { this.popUpModal = component }}
+                title={"Terms and Conditions"}
+                content={datastore.termsAndCondition}
+                buttonText={"I have read and understand"}
+                onPressClose={setToggleCheckBox} />
             <BackButton navigator={navigator} />
         </View>)
 }
@@ -191,9 +198,12 @@ const styles = StyleSheet.create({
         fontSize: custom.contentTextSize,
         color: custom.black
     },
+    tncContainer: {
+        margin: 10,
+        flexDirection: "row",
+        alignItems: "center",
+    },
     tncTextStyle: {
-        lineHeight: 20,
-        marginTop: 3,
         color: custom.pink,
         fontSize: custom.contentTextSize,
 

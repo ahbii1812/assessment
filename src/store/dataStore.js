@@ -51,6 +51,7 @@ class dataStore {
             status: "online"
         },
     ]
+    termsAndCondition = "A terms and conditions agreement outlines the website administrator’s rules regarding user behavior, and provides information about the actions the website administrator can and will perform.\nYour terms and conditions text is a contract between your website and its users. In the event of a legal dispute, arbitrators will look to this agreement to determine whether each party acted within their rights."
 
 }
 

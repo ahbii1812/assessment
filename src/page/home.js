@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, BackHandler, Alert, ScrollView } from 'react-native';
+import React, { useEffect } from 'react';
+import { StyleSheet, View, BackHandler, Alert, FlatList } from 'react-native';
 import RenderCard from '../components/cardComponent';
 import custom from '../customization/customization';
 import datastore from '../store/dataStore'
@@ -30,21 +30,22 @@ export default function Home(props) {
         return () => backHandler.remove();
     }, []);
 
-    RenderContent = () => {
-        let newView = [];
-        datastore.cardDetails.map((item, index) => {
-            newView.push(<View key={index} style={{ marginTop: index == 0 ? 50 : null, marginVertical: 15, justifyContent: "center", alignItems: "center", width: "100%" }}>
-                <RenderCard navigator={navigator} item={item}/>
+    renderContent = (item, index) => {
+        item = item.item
+        return (
+            <View key={index} style={styles.cardContianer}>
+                <RenderCard navigator={navigator} item={item} />
             </View>)
-        })
-        return newView;
+
     }
 
-    return <View style={{ height: "100%", width: "100%", backgroundColor: custom.mainBg, justifyContent: "center", alignItems: "center" }}>
-        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ alignItems: "center", justifyContent: "center" }}>
-            <RenderContent />
-        </ScrollView>
-
+    return <View style={styles.container}>
+        <FlatList
+            showsVerticalScrollIndicator={false}
+            data={datastore.cardDetails}
+            renderItem={(item, index) => renderContent(item, index)}
+            keyExtractor={item => item.title}
+        />
     </View>
 
 }
@@ -52,6 +53,19 @@ export default function Home(props) {
 
 
 const styles = StyleSheet.create({
+    container: {
+        height: "100%",
+        width: "100%",
+        backgroundColor: custom.mainBg,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    cardContianer: {
+        marginVertical: 15,
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%"
+    },
     iconStyle: {
         width: 65,
         height: 70,
