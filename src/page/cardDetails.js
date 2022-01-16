@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Image, Text, View, TouchableOpacity } from 'react-native';
 import BackButton from '../components/backButton';
 import custom from '../customization/customization';
@@ -8,13 +8,18 @@ import PopUpModal from '../components/popUpModal'
 import datastore from '../store/dataStore';
 import { SharedElement } from 'react-navigation-shared-element';
 
-export default function CardDetails(props) {
-    const navigator = props.navigation;
-    const item = props.route.params
-    const [toggleCheckBox, setToggleCheckBox] = useState(false)
+export default class CardDetails extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            item: this.props.route.params,
+            toggleCheckBox: false
+        }
+    }
 
-    const RenderStatus = () => {
-        if (item.status.toUpperCase() == "ONLINE") {
+
+    renderStatus() {
+        if (this.state.item.status.toUpperCase() == "ONLINE") {
             return <View style={[styles.statusStyle, { borderColor: custom.lightGreen }]}>
                 <Text style={[styles.statusTextStyle, { color: custom.lightGreen }]}>
                     ONLINE
@@ -29,17 +34,17 @@ export default function CardDetails(props) {
         }
     }
 
-    const RenderContent = () => {
+    renderContent = () => {
         return (
             <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-                <RenderMinorBlock type={"timeToSpend"} />
-                <RenderMinorBlock type={"getPoints"} />
-                <RenderMinorBlock type={"retakeOnDate"} />
+                {this.renderMinorBlock("timeToSpend")}
+                {this.renderMinorBlock("getPoints")}
+                {this.renderMinorBlock("retakeOnDate")}
             </View>
         )
     }
 
-    const RenderMinorBlock = (props) => {
+    renderMinorBlock = (props) => {
         let text = ""
         let icon = ""
         if (props.type == "getPoints") {
@@ -47,7 +52,7 @@ export default function CardDetails(props) {
                 <Text style={styles.contentText1}>
                     {"Get\n"}
                     <Text style={styles.contentText}>
-                        {item.getPoints}
+                        {this.state.item.getPoints}
                     </Text>
                     <Text style={styles.contentText2}>
                         {" points"}</Text>
@@ -59,7 +64,7 @@ export default function CardDetails(props) {
                 <Text style={styles.contentText1}>
                     {"Spend approx.\n"}
                     <Text style={styles.contentText}>
-                        {item.timeToSpend}
+                        {this.state.item.timeToSpend}
                     </Text>
                     <Text style={styles.contentText2}>
                         {" minutes"}</Text>
@@ -68,10 +73,10 @@ export default function CardDetails(props) {
         }
         else {
 
-            let month = moment(item.retakeDate, 'DD/MM/YYYY').format('MMMM')
+            let month = moment(this.state.item.retakeDate, 'DD/MM/YYYY').format('MMMM')
             month = month.slice(0, 3)
-            let date = moment(item.retakeDate, 'DD/MM/YYYY').format('DD')
-            let year = moment(item.retakeDate, 'DD/MM/YYYY').format('YYYY')
+            let date = moment(this.state.item.retakeDate, 'DD/MM/YYYY').format('DD')
+            let year = moment(this.state.item.retakeDate, 'DD/MM/YYYY').format('YYYY')
             let newDate = date + " " + month + ", "
 
             text = (
@@ -95,17 +100,17 @@ export default function CardDetails(props) {
         )
     }
 
-    const RenderTnC = () => {
+    renderTnC() {
         return (
             <View style={styles.tncContainer}>
                 <View style={{ width: "8%", justifyContent: "center", alignItems: "center" }}>
                     <CheckBox
                         boxType="square"
-                        value={toggleCheckBox}
+                        value={this.state.toggleCheckBox}
                         onCheckColor={custom.blue}
                         onTintColor={custom.blue}
                         tintColor={custom.blue}
-                        onValueChange={(newValue) => setToggleCheckBox(newValue)}
+                        onValueChange={(newValue) => this.setState({ toggleCheckBox: newValue })}
                         style={{ width: 25, height: 25 }} />
                 </View>
                 <Text style={[styles.contentText1, { marginLeft: 15 }]}>
@@ -122,13 +127,13 @@ export default function CardDetails(props) {
         )
     }
 
-    const RenderButton = () => {
+    renderButton(){
         return (
             <View style={{ width: "100%", justifyContent: "center", alignItems: "center", marginTop: 20 }}>
                 <TouchableOpacity
-                    onPress={() => { navigator.push("Assessment", item); }}
-                    disabled={!toggleCheckBox}
-                    style={[styles.buttonContainerStyle, { backgroundColor: !toggleCheckBox ? 'rgba(238,33,108,0.5)' : custom.pink }]}>
+                    onPress={() => { this.props.navigation.push("Assessment", this.state.item); }}
+                    disabled={!this.state.toggleCheckBox}
+                    style={[styles.buttonContainerStyle, { backgroundColor: !this.state.toggleCheckBox ? 'rgba(238,33,108,0.5)' : custom.pink }]}>
                     <Text style={styles.buttonTextStyle}>Start assessment</Text>
                     <Image style={{ marginLeft: 5, width: 20, height: 20 }} source={require("../icon/enter_icon.png")}></Image>
                 </TouchableOpacity>
@@ -136,31 +141,33 @@ export default function CardDetails(props) {
         )
     }
 
-    return (
-        <View style={{ backgroundColor: custom.mainBg, height: "100%", width: "100%" }}>
-            <SharedElement id={item.id} style={{ width: "100%", height: "30%", backgroundColor: custom.mainBg }}>
-                <Image
-                    overflow={"hidden"}
-                    style={{ width: "100%", height: "100%", backgroundColor: custom.mainBg }}
-                    source={item.icon} />
-            </SharedElement>
-            <View style={{ width: "97%", height: "70%" }}>
-                <View style={{ marginTop: 20, flexDirection: "row" }}>
-                    <Text style={styles.mainTitle}>{item.title}</Text>
-                    <RenderStatus />
+    render() {
+        return (
+            <View style={{ backgroundColor: custom.mainBg, height: "100%", width: "100%" }}>
+                <SharedElement id={this.state.item.id} style={{ width: "100%", height: "30%", backgroundColor: custom.mainBg }}>
+                    <Image
+                        overflow={"hidden"}
+                        style={{ width: "100%", height: "100%", backgroundColor: custom.mainBg }}
+                        source={this.state.item.icon} />
+                </SharedElement>
+                <View style={{ width: "97%", height: "70%" }}>
+                    <View style={{ marginTop: 20, flexDirection: "row" }}>
+                        <Text style={styles.mainTitle}>{this.state.item.title}</Text>
+                        {this.renderStatus()}
+                    </View>
+                    <Text style={styles.descTextStyle}>{this.state.item.desc}</Text>
+                    {this.renderContent()}
+                    {this.renderTnC()}
+                    {this.renderButton()}
                 </View>
-                <Text style={styles.descTextStyle}>{item.desc}</Text>
-                <RenderContent />
-                <RenderTnC />
-                <RenderButton />
-            </View>
-            <PopUpModal ref={component => { this.popUpModal = component }}
-                title={"Terms and Conditions"}
-                content={datastore.termsAndCondition}
-                buttonText={"I have read and understand"}
-                onPressClose={setToggleCheckBox} />
-            <BackButton navigator={navigator} />
-        </View>)
+                <PopUpModal ref={component => { this.popUpModal = component }}
+                    title={"Terms and Conditions"}
+                    content={datastore.termsAndCondition}
+                    buttonText={"I have read and understand"}
+                    onPressClose={(item) => this.setState({toggleCheckBox : item})} />
+                <BackButton navigator={this.props.navigation} />
+            </View>)
+    }
 }
 
 const styles = StyleSheet.create({
